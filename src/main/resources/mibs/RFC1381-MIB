@@ -1,7 +1,7 @@
 RFC1381-MIB DEFINITIONS ::= BEGIN
 
 IMPORTS
-        Counter
+        Counter, Gauge
                 FROM RFC1155-SMI
         transmission
                 FROM RFC1213-MIB
