@@ -6,7 +6,7 @@ import java.util.Map;
 public class ImportsReader {
 	private final ImportsRegexExtractor importsRegexExtractor = new ImportsRegexExtractor();
 
-	public void readImports(String root) {
-		Map<String, List<String>> imports = importsRegexExtractor.extractImports(root);
+	public Map<String, List<String>> readImports(String root) {
+		return importsRegexExtractor.extractImports(root);
 	}
 }
