@@ -2,11 +2,9 @@ package parser;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,7 +17,7 @@ public class ObjectTypeExtractorTest {
 	@Test
 	public void shouldReadObjectTypes() throws Exception {
 		//when
-		List<String> actual = tested.getRawObjectTypeStringList(getContent());
+		List<String> actual = tested.getRawObjectTypeDeclarationStringList(getContent());
 		//then
 		assertThat(actual).isNotEmpty();
 		assertThat(actual).hasSameSizeAs(getObjectTypeNames());
@@ -32,8 +30,6 @@ public class ObjectTypeExtractorTest {
 	}
 
 	private String getContent() throws IOException {
-//		InputStream resourceAsStream = getClass().getResourceAsStream("/mibs/RFC1213-MIB");
-//		return IOUtils.toString(resourceAsStream);
 		return mibFileWithoutCommentsReader.readFileWithoutComments("./mibs/RFC1213-MIB");
 	}
 

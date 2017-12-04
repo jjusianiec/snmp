@@ -1,38 +1,61 @@
 package parser;
 
-import static com.google.common.collect.Maps.newHashMap;
-
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static com.google.common.collect.Maps.newHashMap;
+import static java.util.regex.Pattern.DOTALL;
 
 public class ObjectTypesReader {
-	private static final Logger LOGGER = LoggerFactory.getLogger(ObjectTypesReader.class);
-	private static final Pattern OBJECT_TYPE_PATTERN = Pattern.
-			compile("(\\S+)\\s+?OBJECT-TYPE\\s+?SYNTAX\\s+?(.*?)\\s+?ACCESS\\s+?(\\S+?)"
-					+ "\\s+?STATUS\\s+?(\\S+?)\\s+?DESCRIPTION\\s+?\"(.*?)\"\\s*?::=\\s*?"
-					+ "\\{\\s*?(.*?)\\s*?}", Pattern.DOTALL);
+	private static final Pattern ID_PATTERN = Pattern.compile("(\\S+)\\s+?OBJECT-TYPE", DOTALL);
+	private static final Pattern SYNTAX_PATTERN = Pattern.compile("SYNTAX\\s+?(.*?)\\r\\n", DOTALL);
+	private static final Pattern ACCESS_PATTERN = Pattern.compile("ACCESS\\s+?(.*?)\\r\\n", DOTALL);
+	private static final Pattern STATUS_PATTERN = Pattern.compile("STATUS\\s+?(.*?)\\r\\n", DOTALL);
+	private static final Pattern INDEX_PATTERN = Pattern.compile("INDEX\\s+?\\{\\s+?(.*)\\s+?}\\s+?", DOTALL);
+	private static final Pattern DESCRIPTION_PATTERN = Pattern
+			.compile("DESCRIPTION\\s+?\"(.*?)\"\\s+?", DOTALL);
+	private static final Pattern PARENT_ID_PATTERN = Pattern
+			.compile("::=\\s*?\\{\\s*?(.*?)\\s*?}", DOTALL);
 
-	private final ObjectTypeExtractor objectTypeListExtractor = new ObjectTypeExtractor();
+
+	private final ObjectTypeExtractor objectTypeDeclarationListExtractor = new ObjectTypeExtractor();
 
 	public Map<String, OIdRaw> readObjectTypes(String content) {
-		List<String> objectTypes = objectTypeListExtractor.getRawObjectTypeStringList(content);
-		Matcher matches = OBJECT_TYPE_PATTERN.matcher(content);
+		List<String> objectTypes = objectTypeDeclarationListExtractor
+				.getRawObjectTypeDeclarationStringList(content);
 		Map<String, OIdRaw> map = newHashMap();
-		while (matches.find()) {
-			OIdRaw oIdRaw = OIdRaw.builder().type(OIdType.TYPE).build();
-			oIdRaw.setRawId(matches.group(1));
-			oIdRaw.setSyntax(matches.group(2));
-			oIdRaw.setAccess(matches.group(3));
-			oIdRaw.setStatus(matches.group(4));
-			oIdRaw.setDescription(matches.group(5));
+		for (String objectTypeDeclaration : objectTypes) {
+			OIdRaw oIdRaw = new OIdRaw();
+			oIdRaw.setSyntax(getValueFromMatchOrReturnNull(SYNTAX_PATTERN, objectTypeDeclaration));
+			oIdRaw.setAccess(getValueFromMatchOrReturnNull(ACCESS_PATTERN, objectTypeDeclaration));
+			oIdRaw.setDescription(
+					getValueFromMatchOrReturnNull(DESCRIPTION_PATTERN, objectTypeDeclaration));
+			oIdRaw.setParentIdRaw(
+					getValueFromMatchOrReturnNull(PARENT_ID_PATTERN, objectTypeDeclaration));
+			oIdRaw.setStatus(getValueFromMatchOrReturnNull(STATUS_PATTERN, objectTypeDeclaration));
 			oIdRaw.setType(OIdType.TYPE);
-			map.put(oIdRaw.getRawId(), oIdRaw);
+			oIdRaw.setIndex(getValueFromMatchOrReturnNull(INDEX_PATTERN, objectTypeDeclaration));
+			map.put(getValueFromMatchOrThrowException(ID_PATTERN, objectTypeDeclaration), oIdRaw);
 		}
 		return map;
 	}
+
+	private String getValueFromMatchOrThrowException(Pattern pattern,
+			String objectTypeDeclaration) {
+		Matcher matcher = pattern.matcher(objectTypeDeclaration);
+		if(matcher.find()){
+			return matcher.group(1);
+		}
+		throw new NullPointerException("No id name for object[raw]: " + objectTypeDeclaration);
+	}
+
+	private String getValueFromMatchOrReturnNull(Pattern pattern,
+			String objectTypeDeclaration) {
+		Matcher matcher = pattern.matcher(objectTypeDeclaration);
+		return matcher.find() ? matcher.group(1) : null;
+	}
+
+
 }

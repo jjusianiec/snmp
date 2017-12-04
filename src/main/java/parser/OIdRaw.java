@@ -10,10 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OIdRaw {
-	private String rawId;
+	private String parentIdRaw;
 	private String syntax;
 	private String access;
 	private String status;
 	private String description;
+	private String index;
 	private OIdType type;
 }

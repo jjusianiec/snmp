@@ -15,7 +15,7 @@ public class OIdReader {
 		Map<String, OIdRaw> map = newHashMap();
 		while (matcher.find()) {
 			map.put(matcher.group(1),
-					OIdRaw.builder().rawId(matcher.group(2)).type(OIdType.IDENTIFIER).build());
+					OIdRaw.builder().parentIdRaw(matcher.group(2)).type(OIdType.IDENTIFIER).build());
 		}
 		return map;
 	}
