@@ -8,8 +8,8 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-public class MibReaderTest {
-	private MibReader tested = new MibReader();
+public class MibFileWithoutCommentsReaderTest {
+	private MibFileWithoutCommentsReader tested = new MibFileWithoutCommentsReader();
 
 	@Test
 	public void shouldReadFileWithoutComments() throws Exception {

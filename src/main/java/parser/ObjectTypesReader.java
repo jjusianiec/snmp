@@ -20,7 +20,7 @@ public class ObjectTypesReader {
 	private final ObjectTypeExtractor objectTypeListExtractor = new ObjectTypeExtractor();
 
 	public Map<String, OIdRaw> readObjectTypes(String content) {
-		List<String> objectTypes = objectTypeListExtractor.getObjectTypeList(content);
+		List<String> objectTypes = objectTypeListExtractor.getRawObjectTypeStringList(content);
 		Matcher matches = OBJECT_TYPE_PATTERN.matcher(content);
 		Map<String, OIdRaw> map = newHashMap();
 		while (matches.find()) {

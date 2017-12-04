@@ -1,6 +1,6 @@
 package parser;
 
-public class MibReader {
+public class MibFileWithoutCommentsReader {
 	private final FileReader fileReader = new FileReader();
 
 	public String readFileWithoutComments(String path) {
