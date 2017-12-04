@@ -13,8 +13,8 @@ public class MibParser {
 	public MibTree parseMib(String path) {
 		String content = mibReader.readFileWithoutComments(path);
 		Map<String, List<String>> fileToImports = importsReader.readImports(content);
-		Map<String, OId> identifierToOId = oIdReader.readIdentifiers(content);
-		Map<String, OId> typeToOId = objectTypeReader.readObjectTypes(content);
+		Map<String, OIdRaw> identifierToOId = oIdReader.readIdentifiers(content);
+		Map<String, OIdRaw> typeToOId = objectTypeReader.readObjectTypes(content);
 		return null;
 	}
 }

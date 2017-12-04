@@ -9,14 +9,14 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-public class OIdReaderTest {
+public class OIdRawReaderTest {
 
 	private OIdReader tested = new OIdReader();
 
 	@Test
 	public void shouldReadOIds() throws Exception {
 		//when
-		Map<String, OId> actual = tested.readIdentifiers(getContent());
+		Map<String, OIdRaw> actual = tested.readIdentifiers(getContent());
 		//then
 		assertThat(actual).hasSize(13);
 	}

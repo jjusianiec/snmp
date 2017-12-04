@@ -6,31 +6,28 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-public class ObjectTypesReaderTest {
+public class ObjectTypeExtractorTest {
 
-	ObjectTypesReader tested = new ObjectTypesReader();
+	private final ObjectTypeExtractor tested = new ObjectTypeExtractor();
 
 	@Test
 	public void shouldReadObjectTypes() throws Exception {
 		//when
-		Map<String, OIdRaw> actual = tested.readObjectTypes(getContent());
+		List<String> actual = tested.getObjectTypeList(getContent());
 		//then
 		assertThat(actual).isNotEmpty();
-		List<String> objectTypes = getObjectTypes();
-		objectTypes.forEach(ot -> assertThat(ot).isIn(actual.keySet()));
+		assertThat(actual).hasSameSizeAs(getObjectTypeNames());
 	}
 
-	private List<String> getObjectTypes() throws IOException {
-		List list = FileUtils
+	private List<String> getObjectTypeNames() throws IOException {
+		return FileUtils
 				.readLines(new File(getClass().getResource("/object_types_rfc1213").getFile()),
 						"utf-8");
-		return list;
 	}
 
 	private String getContent() throws IOException {

@@ -10,12 +10,12 @@ public class OIdReader {
 	private static final Pattern OBJECT_IDENTIFIER_PATTERN = Pattern.
 			compile("(\\S+)\\s*?OBJECT IDENTIFIER\\s*?::=\\s*?\\{\\s*?(.*?)\\s*?}", Pattern.DOTALL);
 
-	public Map<String, OId> readIdentifiers(String content) {
+	public Map<String, OIdRaw> readIdentifiers(String content) {
 		Matcher matcher = OBJECT_IDENTIFIER_PATTERN.matcher(content);
-		Map<String, OId> map = newHashMap();
+		Map<String, OIdRaw> map = newHashMap();
 		while (matcher.find()) {
 			map.put(matcher.group(1),
-					OId.builder().rawId(matcher.group(2)).type(OIdType.IDENTIFIER).build());
+					OIdRaw.builder().rawId(matcher.group(2)).type(OIdType.IDENTIFIER).build());
 		}
 		return map;
 	}

@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OId {
+public class OIdRaw {
 	private String rawId;
-	private OIdSyntax syntax;
+	private String syntax;
 	private String access;
 	private String status;
 	private String description;
