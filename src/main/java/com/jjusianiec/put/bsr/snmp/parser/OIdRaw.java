@@ -1,4 +1,4 @@
-package parser;
+package com.jjusianiec.put.bsr.snmp.parser;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package parser;
+package com.jjusianiec.put.bsr.snmp.parser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -1,0 +1,16 @@
+Boolean  UNIVERSAL 1
+Integer  UNIVERSAL 2
+Bitstring  UNIVERSAL 3
+Octetstring  UNIVERSAL 4
+Null  UNIVERSAL 5
+Object identifier  UNIVERSAL 6
+Object descriptor  UNIVERSAL 7
+External  UNIVERSAL 8
+Real  UNIVERSAL 9
+Enumerated  UNIVERSAL 10
+Sequence UNIVERSAL 16
+Sequence-of UNIVERSAL 16
+Set UNIVERSAL 17
+Set-of UNIVERSAL 17
+Character string  UNIVERSAL 18
+Time  UNIVERSAL 24

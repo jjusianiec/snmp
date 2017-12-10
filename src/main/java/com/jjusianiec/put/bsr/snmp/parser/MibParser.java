@@ -1,4 +1,4 @@
-package parser;
+package com.jjusianiec.put.bsr.snmp.parser;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ public class MibParser {
 		String content = mibFileWithoutCommentsReader.readFileWithoutComments(path);
 		Map<String, List<String>> fileToImports = importsReader.readImports(content);
 		Map<String, OIdRaw> identifierToOId = oIdReader.readIdentifiers(content);
-		Map<String, OIdRaw> typeToOId = objectTypeReader.readObjectTypes(content);
+		Map<String, OIdRaw> objectTypeIdToOId = objectTypeReader.readObjectTypes(content);
 		return null;
 	}
 }

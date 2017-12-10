@@ -1,6 +1,4 @@
-package parser;
-
-import static org.junit.Assert.*;
+package com.jjusianiec.put.bsr.snmp.parser;
 
 import org.junit.Test;
 

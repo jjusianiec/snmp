@@ -1,4 +1,4 @@
-package parser;
+package com.jjusianiec.put.bsr.snmp.parser;
 
 public enum OIdType {
 	TYPE("OBJECT-TYPE"), IDENTIFIER("OBJECT-IDENTIFIER");

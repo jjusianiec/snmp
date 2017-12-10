@@ -1,6 +1,4 @@
-package parser;
-
-import java.util.Map;
+package com.jjusianiec.put.bsr.snmp.parser;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OIdSyntax {
-	private String type;
-	private Map<String, Object> availableValues;
+public class MibTree {
+	private String emptyLombok;
 }

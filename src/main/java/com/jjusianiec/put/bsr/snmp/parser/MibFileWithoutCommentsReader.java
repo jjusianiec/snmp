@@ -1,4 +1,4 @@
-package parser;
+package com.jjusianiec.put.bsr.snmp.parser;
 
 public class MibFileWithoutCommentsReader {
 	private final FileReader fileReader = new FileReader();

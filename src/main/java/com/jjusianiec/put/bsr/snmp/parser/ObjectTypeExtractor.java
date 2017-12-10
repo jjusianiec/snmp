@@ -1,4 +1,4 @@
-package parser;
+package com.jjusianiec.put.bsr.snmp.parser;
 
 import java.util.List;
 import java.util.regex.Matcher;
