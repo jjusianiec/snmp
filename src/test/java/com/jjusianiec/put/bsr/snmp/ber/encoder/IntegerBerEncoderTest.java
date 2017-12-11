@@ -4,9 +4,11 @@ import org.junit.Test;
 
 import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
 import com.jjusianiec.put.bsr.snmp.ber.model.ClassType;
+import com.jjusianiec.put.bsr.snmp.ber.model.ValueRange;
 import com.jjusianiec.put.bsr.snmp.ber.util.HexStringToByteArray;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class IntegerBerEncoderTest {
 	private IntegerBerEncoder tested = new IntegerBerEncoder();
@@ -14,25 +16,39 @@ public class IntegerBerEncoderTest {
 	@Test
 	public void shouldEncodeSmallInteger() throws Exception {
 		//when
-		byte[] actual = tested.encode(getInput("10000000000000000"));
+		byte[] actual = tested.encode(getInput("1"));
 		//then
-		assertThat(actual).isEqualTo(HexStringToByteArray.apply("02072386F26FC10000"));
-	}
-
-	private BerEncodeInput getInput(String value) {
-		return BerEncodeInput.builder().value(value).classType(ClassType.UNIVERSAL).build();
+		assertThat(actual).isEqualTo(HexStringToByteArray.apply("020101"));
 	}
 
 	@Test
 	public void shouldEncodeMediumInteger() throws Exception {
 		//when
+		byte[] actual = tested.encode(getInput("10000000"));
 		//then
+		assertThat(actual).isEqualTo(HexStringToByteArray.apply("020400989680"));
 	}
 
 	@Test
 	public void shouldEncodeBigInteger() throws Exception {
 		//when
+		byte[] actual = tested.encode(getInput("100000000000000"));
 		//then
+		assertThat(actual).isEqualTo(HexStringToByteArray.apply("02065AF3107A4000"));
 	}
 
+
+	@Test
+	public void shouldThrowExceptionWhenNotInRange() throws Exception {
+		//given
+		BerEncodeInput input = getInput("100000000000000");
+		input.setValueRange(ValueRange.builder().minimum("100").maximum("500").build());
+		//when
+		assertThatThrownBy(() -> tested.encode(input))
+				.isInstanceOf(IllegalArgumentException.class);
+	}
+
+	private BerEncodeInput getInput(String value) {
+		return BerEncodeInput.builder().value(value).classType(ClassType.UNIVERSAL).build();
+	}
 }
