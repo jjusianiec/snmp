@@ -3,6 +3,7 @@ package com.jjusianiec.put.bsr.snmp.ber.encoder;
 import org.junit.Test;
 
 import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
+import com.jjusianiec.put.bsr.snmp.ber.model.DeclarationVisibility;
 
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.APPLICATION;
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.CONTEXT_SPECIFIC;
@@ -21,7 +22,7 @@ public class TagBerEncoderTest {
 		byte[] actual = tested
 				.getTag(BerEncodeInput.builder().dataType(INTEGER).classType(UNIVERSAL).build());
 		//then
-		assertThat(actual).isEqualTo(new byte[] { 0x02 });
+		assertThat(actual).isEqualTo(new byte[] { (byte) 0x02 });
 	}
 
 	@Test
@@ -31,7 +32,7 @@ public class TagBerEncoderTest {
 				.getTag(BerEncodeInput.builder().dataType(INTEGER).classType(APPLICATION).typeId(4)
 						.declarationVisibility(IMPLICIT).build());
 		//then
-		assertThat(actual).isEqualTo(0x44);
+		assertThat(actual).isEqualTo(new byte[] { (byte) 0x44 });
 	}
 
 	@Test
@@ -39,9 +40,9 @@ public class TagBerEncoderTest {
 		//when
 		byte[] actual = tested
 				.getTag(BerEncodeInput.builder().dataType(INTEGER).classType(APPLICATION).typeId(5)
-						.declarationVisibility(EXPLICIT).build());
+						.declarationVisibility(EXPLICIT).build(), 5);
 		//then
-		assertThat(actual).isEqualTo(0x65);
+		assertThat(actual).isEqualTo(new byte[] { (byte) 0x65, (byte) 0x07 });
 	}
 
 	@Test
@@ -51,7 +52,7 @@ public class TagBerEncoderTest {
 				.getTag(BerEncodeInput.builder().dataType(INTEGER).classType(CONTEXT_SPECIFIC)
 						.typeId(4).declarationVisibility(IMPLICIT).build());
 		//then
-		assertThat(actual).isEqualTo(0x84);
+		assertThat(actual).isEqualTo(new byte[] { (byte) 0x84 });
 	}
 
 	@Test
@@ -60,6 +61,16 @@ public class TagBerEncoderTest {
 		byte[] actual = tested.getTag(BerEncodeInput.builder().dataType(INTEGER).typeId(5)
 				.declarationVisibility(EXPLICIT).build());
 		//then
-		assertThat(actual).isEqualTo(0xA5);
+		assertThat(actual).isEqualTo(new byte[] { (byte) 0xA5 });
+	}
+
+	@Test
+	public void shouldGetBigTag() throws Exception {
+		//when
+		byte[] actual = tested.getTag(BerEncodeInput.builder().classType(APPLICATION)
+				.declarationVisibility(IMPLICIT).typeId(500).build());
+		//then
+		assertThat(actual)
+				.isEqualTo(new byte[] { (byte) 0x5F, (byte) 0x83, (byte) 0x74, (byte) 0x01 });
 	}
 }
