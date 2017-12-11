@@ -31,8 +31,9 @@ public class BerEncoder {
 	}
 
 	private static void validateInputOrThrowRuntimeException(BerEncodeInput input) {
-		if (input.getValue() == null || input.getDataType() == null) {
-			throw new RuntimeException("Null value or datatype");
+		if ((input.getValue() == null && input.getValues() == null)
+				|| input.getDataType() == null) {
+			throw new RuntimeException("Null value(s) or datatype");
 		}
 	}
 }
