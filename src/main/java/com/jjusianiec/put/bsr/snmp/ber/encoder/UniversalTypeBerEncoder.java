@@ -6,6 +6,7 @@ public class UniversalTypeBerEncoder {
 
 	private final NullBerEncoder nullBerEncoder = new NullBerEncoder();
 	private final IntegerBerEncoder integerBerEncoder = new IntegerBerEncoder();
+	private final StringBerEncoder stringBerEncoder = new StringBerEncoder();
 
 	public byte[] encode(BerEncodeInput input) {
 		validateInputOrThrowRuntimeException(input);
@@ -13,7 +14,7 @@ public class UniversalTypeBerEncoder {
 		case INTEGER:
 			return integerBerEncoder.encode(input);
 		case OCTET_STRING:
-			break;
+			return stringBerEncoder.encode(input);
 		case OBJECT_IDENTIFIER:
 			break;
 		case NULL:
