@@ -9,6 +9,8 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 
+import com.jjusianiec.put.bsr.snmp.parser.model.OIdRaw;
+
 import static com.google.common.collect.Lists.newArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.slf4j.LoggerFactory.getLogger;

@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.jjusianiec.put.bsr.snmp.parser.model.OIdRaw;
+
 public class OIdReader {
 	private static final Pattern OBJECT_IDENTIFIER_PATTERN = Pattern.
 			compile("(\\S+)\\s*?OBJECT IDENTIFIER\\s*?::=\\s*?\\{\\s*?(.*?)\\s*?}", Pattern.DOTALL);

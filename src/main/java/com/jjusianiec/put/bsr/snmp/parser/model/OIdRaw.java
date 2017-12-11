@@ -1,9 +1,11 @@
-package com.jjusianiec.put.bsr.snmp.parser;
+package com.jjusianiec.put.bsr.snmp.parser.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import com.jjusianiec.put.bsr.snmp.parser.OIdType;
 
 @Data
 @Builder

@@ -2,6 +2,8 @@ package com.jjusianiec.put.bsr.snmp.parser;
 
 import org.junit.Test;
 
+import com.jjusianiec.put.bsr.snmp.parser.model.MibTree;
+
 public class MibParserTest {
 
 

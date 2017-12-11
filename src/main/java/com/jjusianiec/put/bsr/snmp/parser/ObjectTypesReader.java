@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.jjusianiec.put.bsr.snmp.parser.model.OIdRaw;
+
 import static com.google.common.collect.Maps.newHashMap;
 import static java.util.regex.Pattern.DOTALL;
 

@@ -3,6 +3,9 @@ package com.jjusianiec.put.bsr.snmp.parser;
 import java.util.List;
 import java.util.Map;
 
+import com.jjusianiec.put.bsr.snmp.parser.model.MibTree;
+import com.jjusianiec.put.bsr.snmp.parser.model.OIdRaw;
+
 public class MibParser {
 
 	private final ImportsReader importsReader = new ImportsReader();

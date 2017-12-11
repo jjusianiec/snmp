@@ -1,13 +1,15 @@
 package com.jjusianiec.put.bsr.snmp.parser;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
+
+import com.jjusianiec.put.bsr.snmp.parser.model.OIdRaw;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class OIdRawReaderTest {
 
