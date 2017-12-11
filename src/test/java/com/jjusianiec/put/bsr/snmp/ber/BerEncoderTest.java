@@ -2,6 +2,8 @@ package com.jjusianiec.put.bsr.snmp.ber;
 
 import org.junit.Test;
 
+import com.jjusianiec.put.bsr.snmp.ber.encoder.BerEncoder;
+
 public class BerEncoderTest {
 
 	private BerEncoder tested = new BerEncoder();
@@ -14,9 +16,3 @@ public class BerEncoderTest {
 	}
 
 }
-
-// DayOfYear ::= [APPLICATION 17] IMPLICIT INTEGER
-// Birthday ::= SEQUENCE {
-//   name VisibleString,
-//   day DayOfYear
-//}
