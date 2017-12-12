@@ -4,7 +4,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
-import com.jjusianiec.put.bsr.snmp.ber.model.DeclarationVisibility;
 
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.APPLICATION;
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.CONTEXT_SPECIFIC;

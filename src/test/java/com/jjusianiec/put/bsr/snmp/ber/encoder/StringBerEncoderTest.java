@@ -4,8 +4,12 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
+import com.jjusianiec.put.bsr.snmp.ber.model.ClassType;
+import com.jjusianiec.put.bsr.snmp.ber.model.DataType;
 import com.jjusianiec.put.bsr.snmp.ber.util.HexStringToByteArray;
 
+import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.UNIVERSAL;
+import static com.jjusianiec.put.bsr.snmp.ber.model.DataType.OCTET_STRING;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StringBerEncoderTest {
@@ -33,7 +37,7 @@ public class StringBerEncoderTest {
 	}
 
 	private BerEncodeInput getInput(String input) {
-		return BerEncodeInput.builder().value(input).build();
+		return BerEncodeInput.builder().dataType(OCTET_STRING).classType(UNIVERSAL).value(input).build();
 	}
 
 }

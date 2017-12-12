@@ -4,9 +4,11 @@ import org.junit.Test;
 
 import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
 import com.jjusianiec.put.bsr.snmp.ber.model.ClassType;
+import com.jjusianiec.put.bsr.snmp.ber.model.DataType;
 import com.jjusianiec.put.bsr.snmp.ber.model.ValueRange;
 import com.jjusianiec.put.bsr.snmp.ber.util.HexStringToByteArray;
 
+import static com.jjusianiec.put.bsr.snmp.ber.model.DataType.INTEGER;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -49,6 +51,6 @@ public class IntegerBerEncoderTest {
 	}
 
 	private BerEncodeInput getInput(String value) {
-		return BerEncodeInput.builder().value(value).classType(ClassType.UNIVERSAL).build();
+		return BerEncodeInput.builder().value(value).dataType(INTEGER).classType(ClassType.UNIVERSAL).build();
 	}
 }

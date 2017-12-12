@@ -7,9 +7,10 @@ import com.jjusianiec.put.bsr.snmp.ber.util.HexStringToByteArray;
 public class StringBerEncoder {
 
 	private final LengthToEncodedLength lengthToEncodedLength = new LengthToEncodedLength();
+	private final TagBerEncoder tagBerEncoder = new TagBerEncoder();
 
 	public byte[] encode(BerEncodeInput input) {
-		return Bytes.concat(new byte[] { 0x04 },
+		return Bytes.concat(tagBerEncoder.getTag(input, input.getValue().length() / 2),
 				lengthToEncodedLength.mapToEncodedLength(input.getValue().length() / 2),
 				HexStringToByteArray.apply(input.getValue()));
 	}

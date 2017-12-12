@@ -41,7 +41,7 @@ public class TagBerEncoder {
 			return new byte[] { (byte) (tagWithoutTypeId | typeId.byteValue()),
 					Integer.valueOf(length + 2).byteValue() };
 		}
-		return null;
+		return new byte[] {typeId.byteValue()};
 	}
 
 }

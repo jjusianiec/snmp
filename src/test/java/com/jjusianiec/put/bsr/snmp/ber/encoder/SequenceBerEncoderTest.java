@@ -6,6 +6,7 @@ import org.junit.Test;
 import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
 import com.jjusianiec.put.bsr.snmp.ber.model.ClassType;
 import com.jjusianiec.put.bsr.snmp.ber.model.DataType;
+import com.jjusianiec.put.bsr.snmp.ber.util.ByteArrayToHexString;
 import com.jjusianiec.put.bsr.snmp.ber.util.HexStringToByteArray;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -26,6 +27,7 @@ public class SequenceBerEncoderTest {
 		//when
 		byte[] actual = tested.encode(input);
 		//then
+		String apply = ByteArrayToHexString.apply(actual);
 		assertThat(actual).isEqualTo(HexStringToByteArray.apply("300A8004010203048102029A"));
 	}
 

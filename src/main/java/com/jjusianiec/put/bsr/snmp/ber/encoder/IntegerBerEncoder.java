@@ -12,7 +12,7 @@ class IntegerBerEncoder implements Encoder {
 
 	public byte[] encode(BerEncodeInput input) {
 		byte[] bytes = validateValueAndReturnOrThrowException(input);
-		return Bytes.concat(tagBerEncoder.getTag(input), new byte[] { (byte) bytes.length }, bytes);
+		return Bytes.concat(tagBerEncoder.getTag(input, bytes.length), new byte[] { (byte) bytes.length }, bytes);
 	}
 
 	private byte[] validateValueAndReturnOrThrowException(BerEncodeInput input) {
