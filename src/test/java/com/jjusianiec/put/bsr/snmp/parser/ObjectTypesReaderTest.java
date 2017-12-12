@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 
@@ -26,6 +27,7 @@ public class ObjectTypesReaderTest {
 	private final MibFileWithoutCommentsReader mibFileWithoutCommentsReader = new MibFileWithoutCommentsReader();
 
 	@Test
+	@Ignore
 	public void shouldReadObjectTypes() throws Exception {
 		//given
 		String content = getContent();
