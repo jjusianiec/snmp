@@ -139,6 +139,22 @@ public class BerEncoderIntegrationTest {
 	}
 
 	@Test
+	public void shouldEncodeSequenceFromPresentation() throws Exception {
+		//given
+		BerEncodeInput valueOne = BerEncodeInput.builder().dataType(DataType.INTEGER)
+				.classType(ClassType.UNIVERSAL).value("3").build();
+		BerEncodeInput valueTwo = BerEncodeInput.builder().dataType(DataType.INTEGER)
+				.classType(ClassType.UNIVERSAL).value("8").build();
+		BerEncodeInput input = BerEncodeInput.builder().dataType(DataType.SEQUENCE)
+				.values(newArrayList(valueOne, valueTwo)).build();
+		//when
+		byte[] actual = tested.encode(input);
+		//then
+		String apply = ByteArrayToHexString.apply(actual);
+		assertThat(actual).isEqualTo(HexStringToByteArray.apply("30 06 80 01 03 81 01 08"));
+	}
+
+	@Test
 	public void shouldEncode() throws Exception {
 		//given
 
