@@ -1,6 +1,7 @@
 package com.jjusianiec.put.bsr.snmp.ber.encoder;
 
 import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
+import com.jjusianiec.put.bsr.snmp.ber.model.DataType;
 
 public class BerEncoder {
 
@@ -11,7 +12,7 @@ public class BerEncoder {
 	private final SequenceBerEncoder sequenceBerEncoder = new SequenceBerEncoder();
 
 	public byte[] encode(BerEncodeInput input) {
-		if (input.getValue() == null) {
+		if (input.getValue() == null && !DataType.SEQUENCE.equals(input.getDataType())) {
 			return nullBerEncoder.encode();
 		}
 		validateInputOrThrowRuntimeException(input);
@@ -22,10 +23,10 @@ public class BerEncoder {
 			return stringBerEncoder.encode(input);
 		case OBJECT_IDENTIFIER:
 			return objectIdentifierEncoder.encode(input);
-		case NULL:
-			return nullBerEncoder.encode();
 		case SEQUENCE:
 			return sequenceBerEncoder.encode(input);
+		case NULL:
+			return nullBerEncoder.encode();
 		}
 		return null;
 	}

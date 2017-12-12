@@ -42,7 +42,7 @@ public class TagBerEncoder {
 				throw new RuntimeException("No length specified");
 			}
 			return new byte[] { (byte) (tagWithoutTypeId | typeId.byteValue()),
-					Integer.valueOf(length + 2).byteValue() };
+					Integer.valueOf(length + 2).byteValue(), (byte)input.getDataType().getValue() };
 		}
 		if(SEQUENCE.equals(input.getDataType())){
 			return Bytes.concat(new byte[] { typeId.byteValue() }, lengthToEncodedLength.mapToEncodedLength(length));

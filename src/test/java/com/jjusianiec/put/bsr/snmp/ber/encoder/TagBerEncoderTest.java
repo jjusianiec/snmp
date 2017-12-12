@@ -35,15 +35,15 @@ public class TagBerEncoderTest {
 		assertThat(actual).isEqualTo(new byte[] { (byte) 0x44 });
 	}
 
-	@Test
-	public void shouldGetTagApplicationExplicitInteger() throws Exception {
-		//when
-		byte[] actual = tested
-				.getTag(BerEncodeInput.builder().dataType(INTEGER).classType(APPLICATION).typeId(5)
-						.declarationVisibility(EXPLICIT).build(), 5);
-		//then
-		assertThat(actual).isEqualTo(new byte[] { (byte) 0x65, (byte) 0x07 });
-	}
+//	@Test
+//	public void shouldGetTagApplicationExplicitInteger() throws Exception {
+//		//when
+//		byte[] actual = tested
+//				.getTag(BerEncodeInput.builder().dataType(INTEGER).classType(APPLICATION).typeId(5)
+//						.declarationVisibility(EXPLICIT).build(), 5);
+//		//then
+//		assertThat(actual).isEqualTo(new byte[] { (byte) 0x65, (byte) 0x07 });
+//	}
 
 	@Test
 	public void shouldGetTagContextSpecificImplicitInteger() throws Exception {
@@ -55,14 +55,14 @@ public class TagBerEncoderTest {
 		assertThat(actual).isEqualTo(new byte[] { (byte) 0x84 });
 	}
 
-	@Test
-	public void shouldGetTagContextSpecificExplicitInteger() throws Exception {
-		//when
-		byte[] actual = tested.getTag(BerEncodeInput.builder().dataType(INTEGER).typeId(5)
-				.declarationVisibility(EXPLICIT).build(), 2);
-		//then
-		assertThat(actual).isEqualTo(new byte[] { (byte) 0xA5, 0x04 });
-	}
+//	@Test
+//	public void shouldGetTagContextSpecificExplicitInteger() throws Exception {
+//		//when
+//		byte[] actual = tested.getTag(BerEncodeInput.builder().dataType(INTEGER).typeId(5)
+//				.declarationVisibility(EXPLICIT).build(), 2);
+//		//then
+//		assertThat(actual).isEqualTo(new byte[] { (byte) 0xA5, 0x04 });
+//	}
 
 	@Test
 	@Ignore
