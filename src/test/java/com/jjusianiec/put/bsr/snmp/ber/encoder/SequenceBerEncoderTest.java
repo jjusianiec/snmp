@@ -23,7 +23,7 @@ public class SequenceBerEncoderTest {
 		BerEncodeInput valueTwo = BerEncodeInput.builder().dataType(DataType.INTEGER)
 				.classType(ClassType.UNIVERSAL).value("666").build();
 		BerEncodeInput input = BerEncodeInput.builder().dataType(DataType.SEQUENCE)
-				.classType(ClassType.UNIVERSAL).values(newArrayList(valueOne, valueTwo)).build();
+				.values(newArrayList(valueOne, valueTwo)).build();
 		//when
 		byte[] actual = tested.encode(input);
 		//then

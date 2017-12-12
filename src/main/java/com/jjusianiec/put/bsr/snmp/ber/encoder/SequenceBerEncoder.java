@@ -24,10 +24,13 @@ public class SequenceBerEncoder {
 			switch (berEncodeInput.getDataType()) {
 			case INTEGER:
 				toReturn.add(integerBerEncoder.encode(berEncodeInput));
+				break;
 			case OCTET_STRING:
 				toReturn.add(stringBerEncoder.encode(berEncodeInput));
+				break;
 			case NULL:
 				toReturn.add(nullBerEncoder.encode());
+				break;
 			}
 		}
 		byte[] tag = tagBerEncoder.getTag(input, getLength(toReturn));

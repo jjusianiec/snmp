@@ -2,13 +2,16 @@ package com.jjusianiec.put.bsr.snmp.ber.encoder;
 
 import java.util.Map;
 
+import com.google.common.primitives.Bytes;
 import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
 import com.jjusianiec.put.bsr.snmp.ber.model.ClassType;
+import com.jjusianiec.put.bsr.snmp.ber.model.DataType;
 
 import static com.google.common.collect.ImmutableMap.of;
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.APPLICATION;
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.CONTEXT_SPECIFIC;
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.UNIVERSAL;
+import static com.jjusianiec.put.bsr.snmp.ber.model.DataType.SEQUENCE;
 import static com.jjusianiec.put.bsr.snmp.ber.model.DeclarationVisibility.EXPLICIT;
 import static com.jjusianiec.put.bsr.snmp.ber.model.DeclarationVisibility.IMPLICIT;
 
@@ -41,7 +44,10 @@ public class TagBerEncoder {
 			return new byte[] { (byte) (tagWithoutTypeId | typeId.byteValue()),
 					Integer.valueOf(length + 2).byteValue() };
 		}
-		return new byte[] {typeId.byteValue()};
+		if(SEQUENCE.equals(input.getDataType())){
+			return Bytes.concat(new byte[] { typeId.byteValue() }, lengthToEncodedLength.mapToEncodedLength(length));
+		}
+		return new byte[] {(byte) (tagWithoutTypeId | typeId.byteValue()) };
 	}
 
 }
