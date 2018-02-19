@@ -1,9 +1,8 @@
 package com.jjusianiec.put.bsr.snmp.ber.encoder;
 
-import org.assertj.core.api.Assertions;
+import com.jjusianiec.put.bsr.snmp.ber.model.BerData;
 import org.junit.Test;
 
-import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
 import com.jjusianiec.put.bsr.snmp.ber.model.ClassType;
 import com.jjusianiec.put.bsr.snmp.ber.model.DataType;
 import com.jjusianiec.put.bsr.snmp.ber.util.ByteArrayToHexString;
@@ -18,11 +17,11 @@ public class SequenceBerEncoderTest {
 	@Test
 	public void shouldEncode() throws Exception {
 		//given
-		BerEncodeInput valueOne = BerEncodeInput.builder().dataType(DataType.OCTET_STRING)
+		BerData valueOne = BerData.builder().dataType(DataType.OCTET_STRING)
 				.classType(ClassType.UNIVERSAL).value("01020304").build();
-		BerEncodeInput valueTwo = BerEncodeInput.builder().dataType(DataType.INTEGER)
+		BerData valueTwo = BerData.builder().dataType(DataType.INTEGER)
 				.classType(ClassType.UNIVERSAL).value("666").build();
-		BerEncodeInput input = BerEncodeInput.builder().dataType(DataType.SEQUENCE)
+		BerData input = BerData.builder().dataType(DataType.SEQUENCE)
 				.values(newArrayList(valueOne, valueTwo)).build();
 		//when
 		byte[] actual = tested.encode(input);

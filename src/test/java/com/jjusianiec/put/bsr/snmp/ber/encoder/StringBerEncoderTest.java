@@ -1,11 +1,8 @@
 package com.jjusianiec.put.bsr.snmp.ber.encoder;
 
-import org.assertj.core.api.Assertions;
+import com.jjusianiec.put.bsr.snmp.ber.model.BerData;
 import org.junit.Test;
 
-import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
-import com.jjusianiec.put.bsr.snmp.ber.model.ClassType;
-import com.jjusianiec.put.bsr.snmp.ber.model.DataType;
 import com.jjusianiec.put.bsr.snmp.ber.util.HexStringToByteArray;
 
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.UNIVERSAL;
@@ -36,8 +33,8 @@ public class StringBerEncoderTest {
 				+ " A0A0A0A0 A0A0A0A0 A0"));
 	}
 
-	private BerEncodeInput getInput(String input) {
-		return BerEncodeInput.builder().dataType(OCTET_STRING).classType(UNIVERSAL).value(input).build();
+	private BerData getInput(String input) {
+		return BerData.builder().dataType(OCTET_STRING).classType(UNIVERSAL).value(input).build();
 	}
 
 }

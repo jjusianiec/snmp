@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BerEncodeInput {
+public class BerData {
 	private String name;
 	private String value;
 	private DataType dataType;
@@ -19,5 +19,5 @@ public class BerEncodeInput {
 	private ClassType classType;
 	private DeclarationVisibility declarationVisibility;
 	private ValueRange valueRange;
-	private List<BerEncodeInput> values;
+	private List<BerData> values;
 }

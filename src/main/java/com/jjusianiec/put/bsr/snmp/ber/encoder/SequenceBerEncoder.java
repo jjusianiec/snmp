@@ -3,7 +3,7 @@ package com.jjusianiec.put.bsr.snmp.ber.encoder;
 import java.util.List;
 
 import com.google.common.primitives.Bytes;
-import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
+import com.jjusianiec.put.bsr.snmp.ber.model.BerData;
 import com.jjusianiec.put.bsr.snmp.ber.model.ClassType;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -15,18 +15,18 @@ public class SequenceBerEncoder {
 	private final IntegerBerEncoder integerBerEncoder = new IntegerBerEncoder();
 	private final StringBerEncoder stringBerEncoder = new StringBerEncoder();
 
-	public byte[] encode(BerEncodeInput input) {
+	public byte[] encode(BerData input) {
 		List<byte[]> toReturn = newArrayList();
 		Integer typeId = 0;
-		for (BerEncodeInput berEncodeInput : input.getValues()) {
-			berEncodeInput.setClassType(ClassType.CONTEXT_SPECIFIC);
-			berEncodeInput.setTypeId(typeId++);
-			switch (berEncodeInput.getDataType()) {
+		for (BerData berData : input.getValues()) {
+			berData.setClassType(ClassType.CONTEXT_SPECIFIC);
+			berData.setTypeId(typeId++);
+			switch (berData.getDataType()) {
 			case INTEGER:
-				toReturn.add(integerBerEncoder.encode(berEncodeInput));
+				toReturn.add(integerBerEncoder.encode(berData));
 				break;
 			case OCTET_STRING:
-				toReturn.add(stringBerEncoder.encode(berEncodeInput));
+				toReturn.add(stringBerEncoder.encode(berData));
 				break;
 			case NULL:
 				toReturn.add(nullBerEncoder.encode());

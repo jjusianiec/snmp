@@ -3,9 +3,8 @@ package com.jjusianiec.put.bsr.snmp.ber.encoder;
 import java.util.Map;
 
 import com.google.common.primitives.Bytes;
-import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
+import com.jjusianiec.put.bsr.snmp.ber.model.BerData;
 import com.jjusianiec.put.bsr.snmp.ber.model.ClassType;
-import com.jjusianiec.put.bsr.snmp.ber.model.DataType;
 
 import static com.google.common.collect.ImmutableMap.of;
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.APPLICATION;
@@ -23,11 +22,11 @@ public class TagBerEncoder {
 	private final BarEncodeInputToTagWithoutTypeId barEncodeInputToTagWithoutTypeId = new BarEncodeInputToTagWithoutTypeId();
 	//	private final TypeIdToEncodedTypeId typeIdToEncodedTypeId = new TypeIdToEncodedTypeId();
 
-	public byte[] getTag(BerEncodeInput input) {
+	public byte[] getTag(BerData input) {
 		return getTag(input, 0);
 	}
 
-	public byte[] getTag(BerEncodeInput input, Integer length) {
+	public byte[] getTag(BerData input, Integer length) {
 		byte tagWithoutTypeId = barEncodeInputToTagWithoutTypeId.getTag(input);
 		Integer typeId =
 				input.getTypeId() != null ? input.getTypeId() : input.getDataType().getValue();

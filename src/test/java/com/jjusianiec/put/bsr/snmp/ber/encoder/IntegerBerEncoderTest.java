@@ -1,10 +1,9 @@
 package com.jjusianiec.put.bsr.snmp.ber.encoder;
 
+import com.jjusianiec.put.bsr.snmp.ber.model.BerData;
 import org.junit.Test;
 
-import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
 import com.jjusianiec.put.bsr.snmp.ber.model.ClassType;
-import com.jjusianiec.put.bsr.snmp.ber.model.DataType;
 import com.jjusianiec.put.bsr.snmp.ber.model.ValueRange;
 import com.jjusianiec.put.bsr.snmp.ber.util.HexStringToByteArray;
 
@@ -43,14 +42,14 @@ public class IntegerBerEncoderTest {
 	@Test
 	public void shouldThrowExceptionWhenNotInRange() throws Exception {
 		//given
-		BerEncodeInput input = getInput("100000000000000");
+		BerData input = getInput("100000000000000");
 		input.setValueRange(ValueRange.builder().minimum("100").maximum("500").build());
 		//when
 		assertThatThrownBy(() -> tested.encode(input))
 				.isInstanceOf(IllegalArgumentException.class);
 	}
 
-	private BerEncodeInput getInput(String value) {
-		return BerEncodeInput.builder().value(value).dataType(INTEGER).classType(ClassType.UNIVERSAL).build();
+	private BerData getInput(String value) {
+		return BerData.builder().value(value).dataType(INTEGER).classType(ClassType.UNIVERSAL).build();
 	}
 }

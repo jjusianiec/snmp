@@ -1,8 +1,8 @@
 package com.jjusianiec.put.bsr.snmp.ber.encoder;
 
+import com.jjusianiec.put.bsr.snmp.ber.model.BerData;
 import org.junit.Test;
 
-import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
 import com.jjusianiec.put.bsr.snmp.ber.util.HexStringToByteArray;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +18,7 @@ public class ObjectIdentifierEncoderTest {
 		assertThat(actual).isEqualTo(HexStringToByteArray.apply("06052B06010401"));
 	}
 
-	private BerEncodeInput getInput(String s) {
-		return BerEncodeInput.builder().value(s).build();
+	private BerData getInput(String s) {
+		return BerData.builder().value(s).build();
 	}
 }

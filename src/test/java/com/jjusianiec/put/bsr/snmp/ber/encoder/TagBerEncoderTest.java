@@ -1,15 +1,13 @@
 package com.jjusianiec.put.bsr.snmp.ber.encoder;
 
+import com.jjusianiec.put.bsr.snmp.ber.model.BerData;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
 
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.APPLICATION;
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.CONTEXT_SPECIFIC;
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.UNIVERSAL;
 import static com.jjusianiec.put.bsr.snmp.ber.model.DataType.INTEGER;
-import static com.jjusianiec.put.bsr.snmp.ber.model.DeclarationVisibility.EXPLICIT;
 import static com.jjusianiec.put.bsr.snmp.ber.model.DeclarationVisibility.IMPLICIT;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,7 +18,7 @@ public class TagBerEncoderTest {
 	public void shouldGetTagUniversalInteger() throws Exception {
 		//when
 		byte[] actual = tested
-				.getTag(BerEncodeInput.builder().dataType(INTEGER).classType(UNIVERSAL).build());
+				.getTag(BerData.builder().dataType(INTEGER).classType(UNIVERSAL).build());
 		//then
 		assertThat(actual).isEqualTo(new byte[] { (byte) 0x02 });
 	}
@@ -29,7 +27,7 @@ public class TagBerEncoderTest {
 	public void shouldGetTagApplicationImplicitInteger() throws Exception {
 		//when
 		byte[] actual = tested
-				.getTag(BerEncodeInput.builder().dataType(INTEGER).classType(APPLICATION).typeId(4)
+				.getTag(BerData.builder().dataType(INTEGER).classType(APPLICATION).typeId(4)
 						.declarationVisibility(IMPLICIT).build());
 		//then
 		assertThat(actual).isEqualTo(new byte[] { (byte) 0x44 });
@@ -39,7 +37,7 @@ public class TagBerEncoderTest {
 //	public void shouldGetTagApplicationExplicitInteger() throws Exception {
 //		//when
 //		byte[] actual = tested
-//				.getTag(BerEncodeInput.builder().dataType(INTEGER).classType(APPLICATION).typeId(5)
+//				.getTag(BerData.builder().dataType(INTEGER).classType(APPLICATION).typeId(5)
 //						.declarationVisibility(EXPLICIT).build(), 5);
 //		//then
 //		assertThat(actual).isEqualTo(new byte[] { (byte) 0x65, (byte) 0x07 });
@@ -49,7 +47,7 @@ public class TagBerEncoderTest {
 	public void shouldGetTagContextSpecificImplicitInteger() throws Exception {
 		//when
 		byte[] actual = tested
-				.getTag(BerEncodeInput.builder().dataType(INTEGER).classType(CONTEXT_SPECIFIC)
+				.getTag(BerData.builder().dataType(INTEGER).classType(CONTEXT_SPECIFIC)
 						.typeId(4).declarationVisibility(IMPLICIT).build());
 		//then
 		assertThat(actual).isEqualTo(new byte[] { (byte) 0x84 });
@@ -58,7 +56,7 @@ public class TagBerEncoderTest {
 //	@Test
 //	public void shouldGetTagContextSpecificExplicitInteger() throws Exception {
 //		//when
-//		byte[] actual = tested.getTag(BerEncodeInput.builder().dataType(INTEGER).typeId(5)
+//		byte[] actual = tested.getTag(BerData.builder().dataType(INTEGER).typeId(5)
 //				.declarationVisibility(EXPLICIT).build(), 2);
 //		//then
 //		assertThat(actual).isEqualTo(new byte[] { (byte) 0xA5, 0x04 });
@@ -68,7 +66,7 @@ public class TagBerEncoderTest {
 	@Ignore
 	public void shouldGetBigTag() throws Exception {
 		//when
-		byte[] actual = tested.getTag(BerEncodeInput.builder().classType(APPLICATION)
+		byte[] actual = tested.getTag(BerData.builder().classType(APPLICATION)
 				.declarationVisibility(IMPLICIT).typeId(500).build());
 		//then
 		assertThat(actual)

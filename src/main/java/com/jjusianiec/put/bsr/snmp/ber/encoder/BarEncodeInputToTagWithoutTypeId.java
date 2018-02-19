@@ -1,6 +1,6 @@
 package com.jjusianiec.put.bsr.snmp.ber.encoder;
 
-import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
+import com.jjusianiec.put.bsr.snmp.ber.model.BerData;
 
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.APPLICATION;
 import static com.jjusianiec.put.bsr.snmp.ber.model.ClassType.CONTEXT_SPECIFIC;
@@ -9,7 +9,7 @@ import static com.jjusianiec.put.bsr.snmp.ber.model.DeclarationVisibility.IMPLIC
 
 public class BarEncodeInputToTagWithoutTypeId {
 
-	public byte getTag(BerEncodeInput input) {
+	public byte getTag(BerData input) {
 		if (UNIVERSAL.equals(input.getClassType())) {
 			return (byte) input.getDataType().getValue();
 		} else if (APPLICATION.equals(input.getClassType())) {
@@ -21,7 +21,7 @@ public class BarEncodeInputToTagWithoutTypeId {
 		}
 	}
 
-	private byte getContextSpecificTag(BerEncodeInput input) {
+	private byte getContextSpecificTag(BerData input) {
 		if (IMPLICIT.equals(input.getDeclarationVisibility())
 				|| input.getDeclarationVisibility() == null) {
 			return (byte) 0x80;
@@ -30,7 +30,7 @@ public class BarEncodeInputToTagWithoutTypeId {
 		}
 	}
 
-	private byte getApplicationTag(BerEncodeInput input) {
+	private byte getApplicationTag(BerData input) {
 		if (IMPLICIT.equals(input.getDeclarationVisibility())
 				|| input.getDeclarationVisibility() == null) {
 			return 0x40;

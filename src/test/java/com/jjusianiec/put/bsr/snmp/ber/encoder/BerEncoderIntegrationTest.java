@@ -11,13 +11,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.util.Lists.newArrayList;
 
+import com.jjusianiec.put.bsr.snmp.ber.model.*;
 import org.junit.Test;
 
-import com.jjusianiec.put.bsr.snmp.ber.model.BerEncodeInput;
-import com.jjusianiec.put.bsr.snmp.ber.model.ClassType;
-import com.jjusianiec.put.bsr.snmp.ber.model.DataType;
-import com.jjusianiec.put.bsr.snmp.ber.model.DeclarationVisibility;
-import com.jjusianiec.put.bsr.snmp.ber.model.ValueRange;
+import com.jjusianiec.put.bsr.snmp.ber.model.BerData;
 import com.jjusianiec.put.bsr.snmp.ber.util.ByteArrayToHexString;
 import com.jjusianiec.put.bsr.snmp.ber.util.HexStringToByteArray;
 
@@ -28,7 +25,7 @@ public class BerEncoderIntegrationTest {
 	@Test
 	public void shouldEncodeSmallInteger() throws Exception {
 		//when
-		BerEncodeInput input = BerEncodeInput.builder().value("1").dataType(INTEGER)
+		BerData input = BerData.builder().value("1").dataType(INTEGER)
 				.classType(ClassType.UNIVERSAL).build();
 		byte[] actual = tested.encode(input);
 		//then
@@ -37,7 +34,7 @@ public class BerEncoderIntegrationTest {
 
 	@Test
 	public void shouldEncodeMediumInteger() throws Exception {
-		BerEncodeInput input = BerEncodeInput.builder().value("10000000").dataType(INTEGER)
+		BerData input = BerData.builder().value("10000000").dataType(INTEGER)
 				.classType(ClassType.UNIVERSAL).build();
 		//when
 		byte[] actual = tested.encode(input);
@@ -47,7 +44,7 @@ public class BerEncoderIntegrationTest {
 
 	@Test
 	public void shouldEncodeBigInteger() throws Exception {
-		BerEncodeInput input = BerEncodeInput.builder().value("100000000000000").dataType(INTEGER)
+		BerData input = BerData.builder().value("100000000000000").dataType(INTEGER)
 				.classType(ClassType.UNIVERSAL).build();
 		//when
 		byte[] actual = tested.encode(input);
@@ -58,7 +55,7 @@ public class BerEncoderIntegrationTest {
 	@Test
 	public void shouldThrowExceptionWhenNotInRange() throws Exception {
 		//given
-		BerEncodeInput input = BerEncodeInput.builder().value("100000000000000").dataType(INTEGER)
+		BerData input = BerData.builder().value("100000000000000").dataType(INTEGER)
 				.classType(ClassType.UNIVERSAL).build();
 		input.setValueRange(ValueRange.builder().minimum("100").maximum("500").build());
 		//when
@@ -67,7 +64,7 @@ public class BerEncoderIntegrationTest {
 
 	@Test
 	public void shouldEncodeObjectIdentifier() throws Exception {
-		BerEncodeInput input = BerEncodeInput.builder().value("1.3.6.1.4.1")
+		BerData input = BerData.builder().value("1.3.6.1.4.1")
 				.dataType(OBJECT_IDENTIFIER).build();
 		//when
 		byte[] actual = tested.encode(input);
@@ -78,11 +75,11 @@ public class BerEncoderIntegrationTest {
 	@Test
 	public void shouldEncodeSequence() throws Exception {
 		//given
-		BerEncodeInput valueOne = BerEncodeInput.builder().dataType(DataType.OCTET_STRING)
+		BerData valueOne = BerData.builder().dataType(DataType.OCTET_STRING)
 				.classType(ClassType.UNIVERSAL).value("01020304").build();
-		BerEncodeInput valueTwo = BerEncodeInput.builder().dataType(DataType.INTEGER)
+		BerData valueTwo = BerData.builder().dataType(DataType.INTEGER)
 				.classType(ClassType.UNIVERSAL).value("666").build();
-		BerEncodeInput input = BerEncodeInput.builder().dataType(DataType.SEQUENCE)
+		BerData input = BerData.builder().dataType(DataType.SEQUENCE)
 				.values(newArrayList(valueOne, valueTwo)).build();
 		//when
 		byte[] actual = tested.encode(input);
@@ -94,7 +91,7 @@ public class BerEncoderIntegrationTest {
 	@Test
 	public void shouldEncodeSmall() throws Exception {
 		//given
-		BerEncodeInput input = BerEncodeInput.builder().dataType(OCTET_STRING).classType(UNIVERSAL)
+		BerData input = BerData.builder().dataType(OCTET_STRING).classType(UNIVERSAL)
 				.value("01020304").build();
 		//when
 		byte[] actual = tested.encode(input);
@@ -105,7 +102,7 @@ public class BerEncoderIntegrationTest {
 	@Test
 	public void shouldEncodeBig() throws Exception {
 		//given
-		BerEncodeInput input = BerEncodeInput.builder().dataType(OCTET_STRING).classType(UNIVERSAL)
+		BerData input = BerData.builder().dataType(OCTET_STRING).classType(UNIVERSAL)
 				.value("5050505050505050A0A0A0A0A0A0A0A0A0A0"
 						+ "A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0").build();
 		//when
@@ -121,7 +118,7 @@ public class BerEncoderIntegrationTest {
 		//given
 		//when
 		byte[] actual = tested
-				.encode(BerEncodeInput.builder().value("5").dataType(INTEGER).classType(APPLICATION)
+				.encode(BerData.builder().value("5").dataType(INTEGER).classType(APPLICATION)
 						.typeId(5).declarationVisibility(EXPLICIT).build());
 		//then
 		assertThat(actual).isEqualTo(HexStringToByteArray.apply("6503020105"));
@@ -132,7 +129,7 @@ public class BerEncoderIntegrationTest {
 		//given
 		//when
 		byte[] actual = tested
-				.encode(BerEncodeInput.builder().value("5").dataType(INTEGER).classType(APPLICATION)
+				.encode(BerData.builder().value("5").dataType(INTEGER).classType(APPLICATION)
 						.typeId(4).declarationVisibility(IMPLICIT).build());
 		//then
 		assertThat(actual).isEqualTo(HexStringToByteArray.apply("440105"));
@@ -141,11 +138,11 @@ public class BerEncoderIntegrationTest {
 	@Test
 	public void shouldEncodeSequenceFromPresentation() throws Exception {
 		//given
-		BerEncodeInput valueOne = BerEncodeInput.builder().dataType(DataType.INTEGER)
+		BerData valueOne = BerData.builder().dataType(DataType.INTEGER)
 				.classType(ClassType.UNIVERSAL).value("3").build();
-		BerEncodeInput valueTwo = BerEncodeInput.builder().dataType(DataType.INTEGER)
+		BerData valueTwo = BerData.builder().dataType(DataType.INTEGER)
 				.classType(ClassType.UNIVERSAL).value("8").build();
-		BerEncodeInput input = BerEncodeInput.builder().dataType(DataType.SEQUENCE)
+		BerData input = BerData.builder().dataType(DataType.SEQUENCE)
 				.values(newArrayList(valueOne, valueTwo)).build();
 		//when
 		byte[] actual = tested.encode(input);
@@ -153,14 +150,4 @@ public class BerEncoderIntegrationTest {
 		String apply = ByteArrayToHexString.apply(actual);
 		assertThat(actual).isEqualTo(HexStringToByteArray.apply("30 06 80 01 03 81 01 08"));
 	}
-
-	@Test
-	public void shouldEncode() throws Exception {
-		//given
-
-		//when
-
-		//then
-	}
-
 }
