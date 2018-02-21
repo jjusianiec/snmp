@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BerData {
-	private String name;
 	private String value;
 	private DataType dataType;
 	private Integer typeId;
