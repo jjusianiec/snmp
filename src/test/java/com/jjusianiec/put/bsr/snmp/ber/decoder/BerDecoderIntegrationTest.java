@@ -60,7 +60,7 @@ public class BerDecoderIntegrationTest {
         //when
         BerData actual = tested.decode(HexStringToByteArray.apply("06052B06010401"));
         //then
-        assertThat(actual).isEqualTo(BerData.builder().value("1.3.6.1.4.1")
+        assertThat(actual).isEqualTo(BerData.builder().classType(UNIVERSAL).typeId(6).value("1.3.6.1.4.1")
                 .dataType(OBJECT_IDENTIFIER).build());
     }
 
