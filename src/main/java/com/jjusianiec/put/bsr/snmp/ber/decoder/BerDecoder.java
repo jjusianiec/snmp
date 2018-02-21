@@ -23,7 +23,7 @@ public class BerDecoder {
             case OCTET_STRING:
                 return bytesToOctetStringBerDate.apply(input, berDataWithTypes);
             case NULL:
-                break;
+                return berDataWithTypes;
             case SEQUENCE:
                 break;
         }

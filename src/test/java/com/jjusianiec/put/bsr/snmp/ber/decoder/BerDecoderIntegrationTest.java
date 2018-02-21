@@ -88,6 +88,15 @@ public class BerDecoderIntegrationTest {
     }
 
     @Test
+    public void shouldDecodeNull() throws Exception {
+        //when
+        BerData actual = tested.decode(HexStringToByteArray.apply("0500"));
+        //then
+        assertThat(actual).isEqualTo(BerData.builder().typeId(5).dataType(NULL).classType(UNIVERSAL)
+                .value(null).build());
+    }
+
+    @Test
     public void shouldDecodeBig() throws Exception {
         //when
         BerData actual = tested.decode(HexStringToByteArray.apply("042B5050 50505050 "
