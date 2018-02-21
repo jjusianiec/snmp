@@ -23,7 +23,7 @@ public class BerDecoderIntegrationTest {
         //when
         BerData actual = tested.decode(HexStringToByteArray.apply("020101"));
         //then
-        assertThat(actual).isEqualTo(BerData.builder().value("1").dataType(INTEGER)
+        assertThat(actual).isEqualTo(BerData.builder().value("1").typeId(2).dataType(INTEGER)
                 .classType(ClassType.UNIVERSAL).build());
     }
 
@@ -32,7 +32,7 @@ public class BerDecoderIntegrationTest {
         //when
         BerData actual = tested.decode(HexStringToByteArray.apply("020400989680"));
         //then
-        assertThat(actual).isEqualTo(BerData.builder().value("10000000").dataType(INTEGER)
+        assertThat(actual).isEqualTo(BerData.builder().typeId(2).value("10000000").dataType(INTEGER)
                 .classType(ClassType.UNIVERSAL).build());
     }
 
@@ -41,7 +41,7 @@ public class BerDecoderIntegrationTest {
         //when
         BerData actual = tested.decode(HexStringToByteArray.apply("02065AF3107A4000"));
         //then
-        assertThat(actual).isEqualTo(BerData.builder().value("100000000000000").dataType(INTEGER)
+        assertThat(actual).isEqualTo(BerData.builder().typeId(2).value("100000000000000").dataType(INTEGER)
                 .classType(ClassType.UNIVERSAL).build());
     }
 
