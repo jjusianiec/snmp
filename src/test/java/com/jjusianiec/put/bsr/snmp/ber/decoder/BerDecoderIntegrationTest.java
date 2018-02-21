@@ -83,7 +83,7 @@ public class BerDecoderIntegrationTest {
         //when
         BerData actual = tested.decode(HexStringToByteArray.apply("040401020304"));
         //then
-        assertThat(actual).isEqualTo(BerData.builder().dataType(OCTET_STRING).classType(UNIVERSAL)
+        assertThat(actual).isEqualTo(BerData.builder().typeId(4).dataType(OCTET_STRING).classType(UNIVERSAL)
                 .value("01020304").build());
     }
 
@@ -94,7 +94,7 @@ public class BerDecoderIntegrationTest {
                 + "5050A0A0 A0A0A0A0 A0A0A0A0 A0A0A0A0 A0A0A0A0 A0A0A0A0 A0A0A0A0"
                 + " A0A0A0A0 A0A0A0A0 A0"));
         //then
-        assertThat(actual).isEqualTo(BerData.builder().dataType(OCTET_STRING).classType(UNIVERSAL)
+        assertThat(actual).isEqualTo(BerData.builder().typeId(4).dataType(OCTET_STRING).classType(UNIVERSAL)
                 .value("5050505050505050A0A0A0A0A0A0A0A0A0A0"
                         + "A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0A0").build());
     }

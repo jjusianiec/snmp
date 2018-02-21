@@ -10,6 +10,8 @@ public class BerDecoder {
             new BytesToIntegerBerData();
     private BytesToObjectIdentifierBerDate bytesToObjectIdentifierBerDate =
             new BytesToObjectIdentifierBerDate();
+    private BytesToOctetStringBerDate bytesToOctetStringBerDate =
+            new BytesToOctetStringBerDate();
 
     public BerData decode(byte[] input) {
         BerData berDataWithTypes = bytesToBerDataWithTypesFunction.apply(input);
@@ -19,7 +21,7 @@ public class BerDecoder {
             case OBJECT_IDENTIFIER:
                 return bytesToObjectIdentifierBerDate.apply(input, berDataWithTypes);
             case OCTET_STRING:
-                break;
+                return bytesToOctetStringBerDate.apply(input, berDataWithTypes);
             case NULL:
                 break;
             case SEQUENCE:
