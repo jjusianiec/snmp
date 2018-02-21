@@ -3,6 +3,7 @@ package com.jjusianiec.put.bsr.snmp.ber.decoder;
 import com.jjusianiec.put.bsr.snmp.ber.model.BerData;
 
 public class BerDecoder {
+    private static final BerDecoder instance = new BerDecoder();
 
     private BytesToBerDataWithTypesFunction bytesToBerDataWithTypesFunction =
             new BytesToBerDataWithTypesFunction();
@@ -12,6 +13,12 @@ public class BerDecoder {
             new BytesToObjectIdentifierBerDate();
     private BytesToOctetStringBerDate bytesToOctetStringBerDate =
             new BytesToOctetStringBerDate();
+    private BytesToSequenceBerDate bytesToSequenceBerDate =
+            new BytesToSequenceBerDate();
+
+    public static BerDecoder getInstance() {
+        return instance;
+    }
 
     public BerData decode(byte[] input) {
         BerData berDataWithTypes = bytesToBerDataWithTypesFunction.apply(input);
@@ -25,7 +32,7 @@ public class BerDecoder {
             case NULL:
                 return berDataWithTypes;
             case SEQUENCE:
-                break;
+                return bytesToSequenceBerDate.apply(input, berDataWithTypes);
         }
         return null;
     }

@@ -16,7 +16,7 @@ import static org.assertj.core.util.Lists.newArrayList;
 
 public class BerDecoderIntegrationTest {
 
-    private BerDecoder tested = new BerDecoder();
+    private BerDecoder tested = BerDecoder.getInstance();
 
     @Test
     public void shouldEncodeSmallInteger() throws Exception {
@@ -67,14 +67,14 @@ public class BerDecoderIntegrationTest {
     @Test
     public void shouldDecodeSequence() throws Exception {
         //when
-        BerData actual = tested.decode(HexStringToByteArray.apply("300A8004010203048102029A"));
+        BerData actual = tested.decode(HexStringToByteArray.apply("30 0A 04 04 01 02 03 04 02 02 02 9A"));
         //then
         BerData valueOne = BerData.builder().dataType(DataType.OCTET_STRING)
-                .classType(ClassType.UNIVERSAL).value("01020304").build();
+                .classType(ClassType.UNIVERSAL).typeId(4).value("01020304").build();
         BerData valueTwo = BerData.builder().dataType(DataType.INTEGER)
-                .classType(ClassType.UNIVERSAL).value("666").build();
-        BerData expected = BerData.builder().dataType(DataType.SEQUENCE)
-                .values(newArrayList(valueOne, valueTwo)).build();
+                .classType(ClassType.UNIVERSAL).typeId(2).value("666").build();
+        BerData expected = BerData.builder().typeId(16).dataType(DataType.SEQUENCE)
+                .classType(UNIVERSAL).values(newArrayList(valueOne, valueTwo)).build();
         assertThat(actual).isEqualTo(expected);
     }
 
@@ -130,13 +130,13 @@ public class BerDecoderIntegrationTest {
     @Test
     public void shouldDecodeSequenceFromPresentation() throws Exception {
         //when
-        BerData actual = tested.decode(HexStringToByteArray.apply("30 06 80 01 03 81 01 08"));
+        BerData actual = tested.decode(HexStringToByteArray.apply("30 06 02 01 03 02 01 08"));
         //then
         BerData valueOne = BerData.builder().dataType(DataType.INTEGER)
-                .classType(ClassType.UNIVERSAL).value("3").build();
+                .classType(ClassType.UNIVERSAL).typeId(2).value("3").build();
         BerData valueTwo = BerData.builder().dataType(DataType.INTEGER)
-                .classType(ClassType.UNIVERSAL).value("8").build();
-        BerData expected = BerData.builder().dataType(DataType.SEQUENCE)
+                .classType(ClassType.UNIVERSAL).typeId(2).value("8").build();
+        BerData expected = BerData.builder().typeId(16).classType(UNIVERSAL).dataType(DataType.SEQUENCE)
                 .values(newArrayList(valueOne, valueTwo)).build();
         assertThat(actual).isEqualTo(expected);
     }
